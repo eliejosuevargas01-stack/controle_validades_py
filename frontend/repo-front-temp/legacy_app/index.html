@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Controle de Validades - Sistema de Cadastro e Controle</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <!-- Fuentes modernas -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+	    <div id="version-badge" class="version-badge"></div>
+	    <div class="topbar">
+	      <button class="menu-toggle" id="menu-toggle" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="side-menu">
+	        <span></span>
+	        <span></span>
+	        <span></span>
+	      </button>
+	      <div class="brand">
+	        <img src="assets/favicon.svg" alt="Controle de Validades" class="brand-logo" />
+	      </div>
+	      <div class="top-actions">
+	        <span class="status-pill expiry-green">Online</span>
+	        <span
+	          class="plan-badge plan-free plan-tooltip"
+	          id="plan-badge"
+	          data-current-plan-badge
+	          data-tooltip="Plano Free ativo - funcionalidades basicas"
+	        >
+	          Plano Free
+	        </span>
+	        <a
+	          class="btn btn-primary btn-sm"
+	          id="upgrade-btn"
+          data-upgrade-cta
+          href="planos.html"
+          aria-label="Melhorar plano"
+	        >
+	          Melhorar plano
+	        </a>
+	        <button id="logout-btn" class="btn btn-error btn-sm" type="button" data-logout>
+	          Sair
+	        </button>
+	      </div>
+	    </div>
+	    <div class="page-shell">
+	      <aside class="side-menu" id="side-menu" aria-hidden="true">
+	        <div class="side-menu-title">Ecossistema</div>
+	        <nav class="side-menu-links">
+	          <a href="sales.html">Inicio</a>
+	          <a href="index.html" class="is-active">Painel</a>
+	          <a href="sobre.html">Sobre</a>
+	          <a href="servicos.html">Servicos</a>
+	          <a href="ferramentas.html">Ferramentas</a>
+	          <a href="contato.html">Contato</a>
+	          <a href="minha-conta.html">Minha conta</a>
+	        </nav>
+	        <div class="side-menu-divider" role="separator" aria-hidden="true"></div>
+	        <div class="side-menu-section">
+	          <div class="side-menu-title">Conta</div>
+	          <div class="side-menu-account">
+	            <div class="side-menu-account-row">
+	              <span class="status-pill expiry-green">Online</span>
+	              <span
+	                class="plan-badge plan-free plan-tooltip"
+	                data-current-plan-badge
+	                data-tooltip="Plano Free ativo - funcionalidades basicas"
+	              >
+	                Plano Free
+	              </span>
+	            </div>
+	            <a class="btn btn-primary btn-sm" data-upgrade-cta href="planos.html">Melhorar plano</a>
+	            <button class="btn btn-error btn-sm" type="button" data-logout>Sair</button>
+	          </div>
+	        </div>
+	      </aside>
+	      <div class="side-menu-backdrop" id="menu-backdrop"></div>
+
+      <div class="page-content">
+      <!-- Painel de dashboard -->
+      <div class="panel" id="dashboard-panel">
+        <div class="panel-header">
+          <div>
+            <h2>Painel em tempo real</h2>
+            <div class="panel-subtitle">
+              <span class="panel-subtitle-text">KPIs e gráficos atualizados automaticamente.</span>
+              <span
+                class="plan-badge plan-locked plan-tooltip plan-badge-inline"
+                data-plan-badge="reports"
+                data-tooltip="Relatorios personalizados para analise completa (Business)"
+              >
+                Relatorios Business
+              </span>
+            </div>
+          </div>
+          <div class="header-actions">
+            <span class="live-pill offline" id="realtime-status">Tempo real: desconectado</span>
+            <button
+              id="period-btn"
+              class="btn btn-secondary btn-sm"
+              type="button"
+              data-plan="business"
+              data-plan-feature="period"
+            >
+              Filtrar periodo
+            </button>
+            <button id="refresh-dashboard-btn" class="btn btn-secondary btn-sm" type="button">
+              Atualizar agora
+            </button>
+          </div>
+        </div>
+
+        <div class="dashboard-grid">
+          <div class="metric-card" data-metric="total">
+            <div class="metric-title">Total de produtos</div>
+            <div class="metric-value" id="metric-total">0</div>
+          </div>
+          <div class="metric-card" data-metric="expired">
+            <div class="metric-title">Vencidos</div>
+            <div class="metric-value" id="metric-expired">0</div>
+          </div>
+          <div class="metric-card" data-metric="due7">
+            <div class="metric-title">Vence em 7 dias</div>
+            <div class="metric-value" id="metric-due7">0</div>
+          </div>
+          <div class="metric-card" data-metric="launched">
+            <div class="metric-title">Lançados</div>
+            <div class="metric-value" id="metric-launched">0</div>
+          </div>
+          <div class="metric-card" data-metric="not-launched">
+            <div class="metric-title">Não lançados</div>
+            <div class="metric-value" id="metric-not-launched">0</div>
+          </div>
+          <div class="metric-card" data-metric="expired-rate">
+            <div class="metric-title">Taxa de vencidos</div>
+            <div class="metric-value" id="metric-expired-rate">0%</div>
+          </div>
+        </div>
+
+        <div class="charts-grid">
+          <div class="chart-card">
+            <div class="chart-header">
+              <span class="chart-title">Vencidos x em dia</span>
+              <button
+                class="chart-info"
+                type="button"
+                aria-label="Sobre o gráfico Vencidos x em dia"
+                data-tooltip="Compara produtos vencidos sem vendido/retirado (risco) com produtos ainda dentro da validade. Legenda: Vencidos, Em dia."
+              >
+                i
+              </button>
+            </div>
+            <div class="chart-canvas">
+              <canvas id="chart-expiry"></canvas>
+            </div>
+          </div>
+          <div class="chart-card">
+            <div class="chart-header">
+              <span class="chart-title">Vencidos por status</span>
+              <button
+                class="chart-info"
+                type="button"
+                aria-label="Sobre o gráfico Vencidos por status"
+                data-tooltip="Considera apenas itens vencidos (100%) e divide em: Ainda na área (risco), Vendidos e Retirados. Legenda: Ainda na área, Vendidos, Retirados."
+              >
+                i
+              </button>
+            </div>
+            <div class="chart-canvas">
+              <canvas id="chart-expired-status"></canvas>
+            </div>
+          </div>
+          <div class="chart-card">
+            <div class="chart-header">
+              <span class="chart-title">Lançados x não lançados</span>
+              <button
+                class="chart-info"
+                type="button"
+                aria-label="Sobre o gráfico Lançados x não lançados"
+                data-tooltip="Mostra a proporção de itens marcados como lançados para rebaixa vs. não lançados. Legenda: Lançados, Não lançados."
+              >
+                i
+              </button>
+            </div>
+            <div class="chart-canvas">
+              <canvas id="chart-launch"></canvas>
+            </div>
+          </div>
+          <div class="chart-card">
+            <div class="chart-header">
+              <span class="chart-title">Faixas de vencimento</span>
+              <button
+                class="chart-info"
+                type="button"
+                aria-label="Sobre o gráfico Faixas de vencimento"
+                data-tooltip="Distribui itens não vendidos/retirados por dias até o vencimento. Legenda: Vencidos, 0-7 dias, 8-30 dias, 30+ dias."
+              >
+                i
+              </button>
+            </div>
+            <div class="chart-canvas">
+              <canvas id="chart-buckets"></canvas>
+            </div>
+          </div>
+        </div>
+
+	        <div class="expiry-board" id="expiry-board">
+	          <div class="expiry-header">
+	            <div>
+	              <h3>Produtos a vencer</h3>
+	              <div class="panel-subtitle">Vencidos e próximos 30 dias.</div>
+	            </div>
+	            <div class="expiry-meta">
+	              <span class="expiry-updated" id="expiry-updated">Atualizado agora</span>
+	              <span class="expiry-count" id="expiry-count">0 itens</span>
+	              <span
+	                class="plan-badge plan-free plan-tooltip"
+	                data-plan-badge="expiry"
+	                data-tooltip="Lista de vencidos incluida no Free"
+	              >
+	                Vencidos Free
+	              </span>
+	              <button
+	                class="btn btn-secondary btn-sm"
+	                type="button"
+	                id="expiry-collapse-btn"
+	                aria-expanded="true"
+	                aria-controls="expiry-content"
+	              >
+	                Recolher
+	              </button>
+	            </div>
+	          </div>
+	          <div class="expiry-content" id="expiry-content">
+	            <div class="expiry-list" id="expiry-list"></div>
+	          </div>
+	        </div>
+
+        <div class="history-board is-collapsed" id="history-board">
+          <div class="expiry-header">
+            <div>
+              <h3>Histórico</h3>
+              <div class="panel-subtitle history-subtitle">
+                Vendidos ou retirados (somente para registro).
+              </div>
+            </div>
+            <div class="expiry-meta">
+              <span class="expiry-count" id="history-count">0 itens</span>
+              <span
+                class="plan-badge plan-locked plan-tooltip"
+                id="history-badge"
+                data-plan-badge="history"
+                data-tooltip="Historico completo e sem limites (Business)"
+              >
+                Historico completo
+              </span>
+              <button
+                class="btn btn-secondary btn-sm history-toggle"
+                type="button"
+                id="history-toggle-btn"
+                aria-expanded="false"
+                data-plan="business"
+                data-plan-feature="history"
+                data-plan-mode="soft"
+              >
+                Mostrar histórico
+              </button>
+            </div>
+          </div>
+          <div class="history-list" id="history-list"></div>
+        </div>
+      </div>
+    </div>
+
+      <!-- Painel de planilha -->
+      <div class="panel" id="planilha-panel">
+        <div class="panel-header">
+          <div>
+            <h1>Controle de Validades</h1>
+            <div class="panel-subtitle">
+              Visualize e gerencie a planilha de produtos.
+            </div>
+          </div>
+          <div class="header-actions">
+            <button
+              id="fetch-btn"
+              class="btn btn-primary"
+              type="button"
+              data-plan="business"
+              data-plan-feature="import"
+              data-plan-mode="soft"
+            >
+              Buscar planilha do servidor
+            </button>
+            <span
+              class="plan-badge plan-locked plan-tooltip plan-badge-inline"
+              id="import-badge"
+              data-plan-badge="import"
+              data-tooltip="Importacao automatica de planilhas (Business)"
+            >
+              Importacao Business
+            </span>
+            <button id="open-form-btn" class="btn btn-secondary" type="button">
+              Cadastrar produto
+            </button>
+            <span
+              class="plan-badge plan-free plan-tooltip plan-badge-inline"
+              data-plan-badge="manual"
+              data-tooltip="Cadastro manual disponivel no Free"
+            >
+              Cadastro Free
+            </span>
+          </div>
+        </div>
+
+        <div class="toolbar" id="toolbar" style="display: none">
+          <span>Planilha:</span>
+          <select id="sheet-select"></select>
+          <span>Categoria:</span>
+          <select id="category-filter"></select>
+          <div class="toolbar-spacer"></div>
+          <button class="btn btn-secondary btn-sm" type="button" id="export-xlsx-btn" data-plan="business" data-plan-feature="export">
+            Exportar XLSX
+          </button>
+          <button class="btn btn-secondary btn-sm" type="button" id="export-csv-btn" data-plan="business" data-plan-feature="export">
+            Exportar CSV
+          </button>
+          <button class="btn btn-secondary btn-sm" type="button" id="export-json-btn" data-plan="business" data-plan-feature="export">
+            Exportar JSON
+          </button>
+          <button class="btn btn-secondary btn-sm" type="button" id="export-pdf-btn" data-plan="business" data-plan-feature="export">
+            Exportar PDF
+          </button>
+          <span
+            class="plan-badge plan-locked plan-tooltip plan-badge-inline"
+            id="export-badge"
+            data-plan-badge="export"
+            data-tooltip="Exportacao de dados em XLSX, CSV e PDF (Business)"
+          >
+            Exportacao Business
+          </span>
+        </div>
+
+        <div class="plan-banner" id="plan-limit-banner" aria-live="polite"></div>
+        <div class="bulk-actions" id="bulk-actions">
+          <div class="bulk-info">
+            <div id="bulk-count">Nenhum produto selecionado.</div>
+            <small class="muted">Use as caixas de seleção da tabela para ações em lote.</small>
+          </div>
+          <div class="bulk-buttons">
+            <button class="btn btn-success btn-sm" type="button" id="bulk-launch-btn">
+              Lançar selecionados
+            </button>
+            <button class="btn btn-success btn-sm" type="button" id="bulk-sold-btn">
+              Vendido selecionados
+            </button>
+            <button class="btn btn-secondary btn-sm" type="button" id="bulk-removed-btn">
+              Retirado selecionados
+            </button>
+            <button class="btn btn-secondary btn-sm" type="button" id="bulk-edit-btn">
+              Editar selecionados
+            </button>
+            <button class="btn btn-error btn-sm" type="button" id="bulk-delete-btn">
+              Eliminar selecionados
+            </button>
+          </div>
+        </div>
+
+        <div id="status"></div>
+        <div class="plan-cta" id="plan-cta" aria-live="polite"></div>
+
+        <div class="table-controls" id="table-controls">
+          <div class="table-count" id="table-count"></div>
+          <button class="btn btn-secondary btn-sm" type="button" id="table-toggle-btn">
+            Mostrar todos
+          </button>
+          <span
+            class="plan-badge plan-free plan-tooltip"
+            data-plan-badge="limit"
+            data-tooltip="Free: ate 50 produtos/mes | Business: ilimitado"
+          >
+            Limite Free
+          </span>
+          <span
+            class="plan-badge plan-locked plan-tooltip"
+            data-plan-badge="unlimited"
+            data-tooltip="Produtos ilimitados sem restricoes (Business)"
+          >
+            Ilimitado Business
+          </span>
+        </div>
+
+        <div id="output"></div>
+      </div>
+
+      <!-- Painel de leitura de código de barras -->
+      <div class="panel" id="barcode-panel">
+        <div class="panel-header">
+          <div>
+            <h2>Leitor de Código de Barras (EAN)</h2>
+            <div class="panel-subtitle">
+              Use a câmera para ler códigos EAN e adicionar produtos.
+            </div>
+          </div>
+          <div class="header-actions barcode-actions">
+            <button id="start-scan-btn" class="btn btn-primary" type="button">
+              Abrir câmera
+            </button>
+            <button id="stop-scan-btn" class="btn btn-secondary" type="button">
+              Parar
+            </button>
+          </div>
+        </div>
+
+        <div class="barcode-grid collapsed" id="barcode-grid">
+          <div class="camera-box">
+            <div id="reader1"></div>
+          </div>
+          <div class="barcode-info">
+            <div id="barcode-result"></div>
+            <div id="barcode-status"></div>
+            <button id="retry-scan-btn" class="btn btn-secondary btn-sm" type="button">
+              Tentar novamente
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Painel de cadastro -->
+      <div class="panel" id="form-panel">
+        <div class="panel-header">
+          <div>
+            <h2>Cadastrar Novo Produto</h2>
+            <div class="panel-subtitle">
+              Escaneie o código de barras e preencha nome, quantidade e validade.
+            </div>
+          </div>
+        </div>
+
+        <form id="produto-form" class="form-grid" novalidate>
+          <div id="itens-container" class="itens-container extra-empty">
+            Nenhum produto adicionado. Use o leitor para escanear um código.
+          </div>
+
+          <div class="form-actions">
+            <button class="btn btn-secondary" type="button" id="add-item-btn">
+              Adicionar produto
+            </button>
+            <button class="btn btn-primary" type="button" id="enviar-todos-btn">
+              Enviar todos os produtos
+            </button>
+          </div>
+        </form>
+
+        <p id="mensagem"></p>
+      </div>
+    </div>
+    </div>
+    <!-- Modal de edição (planilha) -->
+    <div id="edit-modal" aria-hidden="true">
+      <div class="modal-card">
+        <h3 id="edit-title">Editar registro</h3>
+        <p class="modal-hint" id="edit-hint">Edite os campos e clique em salvar.</p>
+        <form id="edit-form" class="form-grid">
+          <div class="field">
+            <label>ID</label>
+            <input type="text" id="edit-id" readonly>
+          </div>
+          <div class="field">
+            <label>EAN</label>
+            <input type="text" id="edit-ean" required>
+          </div>
+          <div class="field">
+            <label>Nome</label>
+            <input type="text" id="edit-nome" required>
+          </div>
+          <div class="field">
+            <label>Quantidade</label>
+            <input type="number" id="edit-qtd" min="0" step="1" required>
+          </div>
+          <div class="field">
+            <label>Validade</label>
+            <input type="date" id="edit-validade" required>
+          </div>
+          <div class="field">
+            <label>Troca</label>
+            <label class="switch">
+              <input type="checkbox" id="edit-troca">
+              <span class="slider"></span>
+              <span class="switch-label" id="edit-troca-label">NÃO</span>
+            </label>
+          </div>
+          <div class="field">
+            <label>Rotatividade alta</label>
+            <label class="switch">
+              <input type="checkbox" id="edit-rota">
+              <span class="slider"></span>
+              <span class="switch-label" id="edit-rota-label">NÃO</span>
+            </label>
+          </div>
+        </form>
+        <div class="modal-actions">
+          <button class="btn btn-secondary" type="button" id="edit-cancel-btn">Cancelar</button>
+          <button class="btn btn-primary" type="button" id="edit-save-btn">Salvar</button>
+        </div>
+        <div class="status" id="edit-status"></div>
+      </div>
+    </div>
+
+    <div id="detail-modal" aria-hidden="true">
+      <div class="modal-card">
+        <div class="detail-header">
+          <h3 id="detail-title">Detalhes</h3>
+          <div class="detail-header-actions">
+            <button class="btn btn-primary btn-sm" type="button" id="detail-export-btn">
+              Exportar seleção
+            </button>
+            <button class="btn btn-secondary btn-sm" type="button" id="detail-close-btn">
+              Fechar
+            </button>
+          </div>
+        </div>
+        <p class="modal-hint" id="detail-subtitle"></p>
+        <div class="detail-meta" id="detail-meta"></div>
+        <div class="detail-list" id="detail-list"></div>
+      </div>
+    </div>
+
+    <button class="assistant-fab" id="assistant-fab" type="button" aria-haspopup="dialog" aria-controls="assistant-modal">
+      Assistente
+    </button>
+    <div class="assistant-modal" id="assistant-modal" aria-hidden="true">
+      <div class="assistant-card" role="dialog" aria-modal="true" aria-label="Assistente">
+        <div class="assistant-header">
+          <div>
+            <div class="assistant-title">Assistente</div>
+            <div class="assistant-subtitle">Envie mensagens para o n8n</div>
+          </div>
+          <button class="btn btn-secondary btn-sm" type="button" id="assistant-close-btn">
+            Fechar
+          </button>
+        </div>
+        <div class="assistant-messages" id="assistant-messages"></div>
+        <div class="assistant-input-row">
+          <input id="assistant-input" type="text" placeholder="Digite sua mensagem" />
+          <button class="btn btn-primary btn-sm" type="button" id="assistant-send-btn">
+            Enviar
+          </button>
+        </div>
+        <div class="assistant-status" id="assistant-status"></div>
+      </div>
+    </div>
+
+    <div class="upgrade-toast" id="upgrade-toast" role="status" aria-live="polite">
+      <div class="upgrade-toast-top">
+        <strong>Desbloqueie mais recursos</strong>
+        <button class="btn btn-secondary btn-xs" type="button" id="upgrade-toast-close">Fechar</button>
+      </div>
+      <p>
+        No plano Free voce controla ate 50 produtos por mes.
+        No Business, tenha produtos ilimitados, relatorios completos,
+        importacao automatica e exportacao de dados.
+      </p>
+      <a class="btn btn-primary btn-sm" href="planos.html">Melhorar plano</a>
+    </div>
+
+    <!-- Dependências -->
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+    <script src="https://unpkg.com/html5-qrcode"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <script src="js/main.js"></script>
+
+  </body>
+</html>

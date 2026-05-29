@@ -1,0 +1,34 @@
+# Virtual environments
+.venv/
+backend/.venv/
+
+# Python cache
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Environment variables
+.env
+*.env
+
+# VS Code
+.vscode/
+
+# SQLite
+*.db
+*.sqlite
+*.sqlite3
+
+# Frontend
+node_modules/
+frontend/node_modules/
+
+dist/
+frontend/dist/
+
+# React/Vite cache
+.vite/
+
+# Logs
+*.log
+npm-debug.log*

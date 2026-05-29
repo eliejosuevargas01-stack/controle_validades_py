@@ -1,0 +1,51 @@
+/*
+ * Arquivo: globals.css
+ * Objetivo: Estilizações globais aplicáveis a todo o documento.
+ *
+ * O que fazer aqui:
+ * - Importar fontes.
+ * - Fazer o "reset" de CSS (ex: margin: 0; padding: 0; box-sizing: border-box;).
+ * - Definir estilos base para <body>, <h1> a <h6>, e <a>.
+ */
+body {
+    font-family: Arial, sans-serif;
+    background: #f4f7fb;
+    margin: 0;
+    padding: 20px;
+
+}
+.products-container {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+}
+form {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+button {
+    padding: 10px 16px;
+    border: none;
+    border-radius: 8px;
+    background: #2563eb;
+    color: white;
+    cursor: pointer;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    
+}
+th, td {
+    border-bottom: 1px solid #ddd;
+    padding: 12px;
+    text-align: left;
+}

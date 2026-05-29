@@ -1,0 +1,8 @@
+.venv/
+__pycache__/
+*.pyc
+.env
+.env.*
+<!DOCTYPE html>.html
+node_modules/
+dist/

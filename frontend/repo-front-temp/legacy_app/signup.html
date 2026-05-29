@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Assinatura | Controle de Validades</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+    <style>
+      :root {
+        --bg-primary: #f5f7fb;
+        --accent-primary: #2563eb;
+        --accent-secondary: #06b6d4;
+        --text-primary: #0f172a;
+        --text-muted: #475569;
+        --border: rgba(15, 23, 42, 0.12);
+        --shadow: 0 16px 50px rgba(15, 23, 42, 0.12);
+      }
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+      body {
+        font-family: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+        background: var(--bg-primary);
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        padding: 1rem;
+        position: relative;
+        overflow-x: hidden;
+        overflow-y: auto;
+      }
+      body::before, body::after {
+        content: "";
+        position: absolute;
+        border-radius: 999px;
+        filter: blur(60px);
+        opacity: 0.6;
+        z-index: 0;
+      }
+      body::before {
+        width: 360px;
+        height: 360px;
+        background: rgba(37, 99, 235, 0.18);
+        top: -80px;
+        left: -60px;
+      }
+      body::after {
+        width: 300px;
+        height: 300px;
+        background: rgba(6, 182, 212, 0.18);
+        bottom: -60px;
+        right: -40px;
+      }
+      .card {
+        background: #fff;
+        border: 1px solid var(--border);
+        border-radius: 20px;
+        box-shadow: var(--shadow);
+        padding: 1.1rem;
+        width: 100%;
+        max-width: 520px;
+        position: relative;
+        z-index: 1;
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 1rem;
+      }
+      .brand-logo {
+        width: clamp(180px, 82vw, 400px);
+        height: auto;
+        border-radius: 12px;
+      }
+      h1 {
+        font-size: 1.15rem;
+        color: var(--text-primary);
+      }
+      p.lead {
+        color: var(--text-muted);
+        font-size: 0.95rem;
+        margin-bottom: 1rem;
+      }
+      .plan {
+        background: #f8fafc;
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 1rem;
+        margin-bottom: 1rem;
+      }
+      .plan h2 {
+        font-size: 1.1rem;
+        color: var(--text-primary);
+        margin-bottom: 0.35rem;
+      }
+      .plan .price {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--accent-primary);
+      }
+      .plan ul {
+        margin-top: 0.75rem;
+        padding-left: 1rem;
+        color: var(--text-muted);
+      }
+      form {
+        display: flex;
+        flex-direction: column;
+        gap: 0.85rem;
+      }
+      .field {
+        display: flex;
+        flex-direction: column;
+        gap: 0.35rem;
+      }
+      label {
+        font-weight: 600;
+        color: var(--text-primary);
+      }
+      input {
+        width: 100%;
+        padding: 0.85rem 1rem;
+        border-radius: 12px;
+        border: 1px solid var(--border);
+        background: #fff;
+        color: var(--text-primary);
+        box-shadow: 0 8px 18px rgba(15, 23, 42, 0.06);
+      }
+      input:focus {
+        outline: none;
+        border-color: var(--accent-primary);
+        box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.18);
+      }
+      .btn {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.85rem 1rem;
+        border-radius: 12px;
+        border: 1px solid transparent;
+        font-weight: 700;
+        cursor: pointer;
+        background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+        color: #fff;
+        box-shadow: 0 12px 30px rgba(37, 99, 235, 0.26);
+      }
+      .status {
+        min-height: 20px;
+        font-size: 0.9rem;
+        color: var(--text-muted);
+      }
+      .status.ok { color: #16a34a; }
+      .status.err { color: #dc2626; }
+      .note {
+        font-size: 0.85rem;
+        color: var(--text-muted);
+        margin-top: 0.25rem;
+      }
+      .switch {
+        margin-top: 0.75rem;
+        font-size: 0.95rem;
+        color: var(--text-muted);
+        text-align: center;
+      }
+      .switch a {
+        color: var(--accent-primary);
+        font-weight: 700;
+        text-decoration: none;
+        padding: 0 0.25rem;
+      }
+      .switch a:hover { text-decoration: underline; }
+
+      @media (min-width: 640px) {
+        body { padding: 1.5rem; }
+        .card { padding: 1.75rem; }
+        .brand-logo { width: clamp(240px, 64vw, 440px); }
+        h1 { font-size: 1.4rem; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <div class="brand">
+        <img src="assets/logo.png" alt="Controle de Validades" class="brand-logo" />
+      </div>
+
+      <form id="signup-form">
+        <div class="field">
+          <label for="signup-name">Nome completo</label>
+          <input id="signup-name" type="text" autocomplete="name" required />
+        </div>
+        <div class="field">
+          <label for="signup-email">Email</label>
+          <input id="signup-email" type="email" autocomplete="email" required />
+        </div>
+        <div class="field">
+          <label for="signup-password">Senha</label>
+          <input id="signup-password" type="password" autocomplete="new-password" required />
+        </div>
+        <div class="field">
+          <label for="signup-company">Empresa</label>
+          <input id="signup-company" type="text" autocomplete="organization" required />
+        </div>
+        <button class="btn" type="submit">Criar conta e continuar</button>
+        <div class="status" id="signup-status"></div>
+        <div class="note">Conta criada com teste gratis limitado. Escolha o plano na proxima tela.</div>
+      </form>
+
+      <div class="switch">
+        <span>Ja tem conta?</span>
+        <a href="login.html">Fazer login</a>
+      </div>
+    </div>
+
+    <script>
+      const AUTH_KEY = "gp_auth";
+      const USER_KEY = "gp_user";
+      const signupForm = document.getElementById("signup-form");
+      const statusEl = document.getElementById("signup-status");
+
+      function setStatus(text, type = "") {
+        if (!statusEl) return;
+        statusEl.textContent = text;
+        statusEl.className = "status";
+        if (type === "ok") statusEl.classList.add("ok");
+        if (type === "err") statusEl.classList.add("err");
+      }
+
+      const SIGNUP_ENDPOINTS = [
+        "https://myn8n.seommerce.shop/webhook/singin",
+      ];
+
+      async function postJsonWithFallback(urls, body, options = {}) {
+        const retryOnHttpError = options.retryOnHttpError !== false;
+        let lastError = null;
+        for (const url of urls) {
+          try {
+            const res = await fetch(url, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(body),
+            });
+            if (!res.ok) {
+              if (!retryOnHttpError) return res;
+              throw new Error("Erro HTTP " + res.status);
+            }
+            return res;
+          } catch (err) {
+            lastError = err;
+          }
+        }
+        throw lastError || new Error("Falha ao enviar dados.");
+      }
+
+      signupForm.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        const name = (document.getElementById("signup-name").value || "").trim();
+        const email = (document.getElementById("signup-email").value || "").trim();
+        const password = (document.getElementById("signup-password").value || "").trim();
+        const company = (document.getElementById("signup-company").value || "").trim();
+        if (!name || !email || !password || !company) {
+          setStatus("Preencha nome, email, senha e empresa.", "err");
+          return;
+        }
+        const isValidEmail = /\S+@\S+\.\S+/.test(email);
+        if (!isValidEmail) {
+          setStatus("Digite um email valido.", "err");
+          return;
+        }
+        setStatus("Criando conta...");
+        try {
+          await postJsonWithFallback(SIGNUP_ENDPOINTS, {
+            action: "singin",
+            name,
+            user: email,
+            email,
+            password,
+            company,
+            business: false,
+          }, { retryOnHttpError: false });
+          localStorage.setItem(AUTH_KEY, "1");
+          localStorage.setItem(USER_KEY, email);
+          localStorage.setItem("gp_account_business", "0");
+          localStorage.setItem("plan_type", "free");
+          localStorage.removeItem("gp_account_id");
+          localStorage.removeItem("gp_account_expira_em");
+          localStorage.removeItem("gp_account_criado_em");
+          localStorage.removeItem("gp_account_whatsapp");
+          localStorage.removeItem("gp_account_loja");
+          localStorage.setItem("signup_name", name);
+          localStorage.setItem("signup_email", email);
+          localStorage.setItem("signup_company", company);
+          setStatus("Conta criada. Redirecionando...", "ok");
+          window.location.href = "planos.html";
+        } catch (err) {
+          setStatus(err.message || "Erro ao criar conta.", "err");
+        }
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Minha conta | Controle de Validades</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <div class="topbar">
+      <button class="menu-toggle" id="menu-toggle" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="side-menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <div class="brand">
+        <img src="assets/favicon.svg" alt="Controle de Validades" class="brand-logo" />
+        <div>
+          <div style="font-size: 0.95rem;">Controle de Validades</div>
+          <small>Ecossistema e produto</small>
+        </div>
+      </div>
+      <div class="top-actions">
+        <a class="btn btn-secondary btn-sm" href="index.html">Painel</a>
+        <a class="btn btn-secondary btn-sm" href="sobre.html">Sobre</a>
+        <a class="btn btn-secondary btn-sm" href="servicos.html">Servicos</a>
+        <a class="btn btn-secondary btn-sm" href="ferramentas.html">Ferramentas</a>
+        <a class="btn btn-secondary btn-sm" href="contato.html">Contato</a>
+        <a class="btn btn-primary btn-sm" href="minha-conta.html">Minha conta</a>
+      </div>
+    </div>
+
+    <div class="page-shell">
+      <aside class="side-menu" id="side-menu" aria-hidden="true">
+        <div class="side-menu-title">Ecossistema</div>
+        <nav class="side-menu-links">
+          <a href="sales.html">Inicio</a>
+          <a href="index.html">Painel</a>
+          <a href="sobre.html">Sobre</a>
+          <a href="servicos.html">Servicos</a>
+          <a href="ferramentas.html">Ferramentas</a>
+          <a href="contato.html">Contato</a>
+          <a href="minha-conta.html" class="is-active">Minha conta</a>
+          <a href="login.html">Login</a>
+        </nav>
+      </aside>
+      <div class="side-menu-backdrop" id="menu-backdrop"></div>
+
+      <div class="page-content">
+        <div class="panel">
+          <div class="panel-header">
+            <div>
+              <h2>Minha conta</h2>
+              <div class="panel-subtitle">
+                As configuracoes abaixo impactam alertas, relatorios e historico de auditoria.
+              </div>
+            </div>
+            <div class="panel-plan">
+              <div class="panel-plan-label">Plano atual</div>
+              <span
+                class="plan-badge plan-free plan-tooltip"
+                id="account-plan-badge"
+                data-tooltip="Plano Free ativo - funcionalidades basicas"
+              >
+                Plano Free
+              </span>
+              <a
+                class="btn btn-primary btn-xs"
+                id="account-upgrade-btn"
+                data-upgrade-cta
+                href="planos.html"
+                aria-label="Melhorar plano"
+              >
+                Melhorar plano
+              </a>
+            </div>
+          </div>
+
+          <form class="form-grid">
+            <div>
+              <h3>Dados do usuario</h3>
+              <div class="panel-subtitle">Perfil e contato do responsavel.</div>
+            </div>
+            <div class="field">
+              <label for="conta-nome">Nome completo</label>
+              <input id="conta-nome" type="text" placeholder="Seu nome" />
+            </div>
+            <div class="field">
+              <label for="conta-email">Email</label>
+              <input id="conta-email" type="email" placeholder="voce@email.com" />
+            </div>
+            <div class="field">
+              <label for="conta-telefone">Telefone</label>
+              <input id="conta-telefone" type="tel" placeholder="(00) 00000-0000" />
+            </div>
+            <div>
+              <h3>Dados operacionais</h3>
+              <div class="panel-subtitle">Informacoes da loja e da funcao.</div>
+            </div>
+            <div class="field">
+              <label for="conta-loja">Loja</label>
+              <input id="conta-loja" type="text" placeholder="Nome da loja" />
+            </div>
+            <div class="field">
+              <label for="conta-cargo">Cargo</label>
+              <input id="conta-cargo" type="text" placeholder="Ex: Gerente" />
+            </div>
+            <div>
+              <button class="btn btn-primary" type="button" id="account-save-btn">Salvar alteracoes</button>
+              <button class="btn btn-secondary" type="button" id="account-cancel-btn">Cancelar</button>
+            </div>
+            <div class="panel-subtitle" id="account-status" aria-live="polite"></div>
+          </form>
+        </div>
+
+        <div class="panel">
+          <div class="panel-header">
+            <div>
+              <h2>Seguranca</h2>
+              <div class="panel-subtitle">
+                Atualize sua senha de acesso.
+              </div>
+            </div>
+          </div>
+
+          <form class="form-grid">
+            <div class="field">
+              <label for="senha-atual">Senha atual</label>
+              <input id="senha-atual" type="password" placeholder="Digite sua senha atual" />
+            </div>
+            <div class="field">
+              <label for="senha-nova">Nova senha</label>
+              <input id="senha-nova" type="password" placeholder="Crie uma nova senha" />
+            </div>
+            <div class="field">
+              <label for="senha-confirmar">Confirmar nova senha</label>
+              <input id="senha-confirmar" type="password" placeholder="Repita a nova senha" />
+            </div>
+            <div>
+              <button class="btn btn-primary" type="button">Atualizar senha</button>
+            </div>
+          </form>
+        </div>
+
+        <div class="panel">
+          <div class="panel-header">
+            <div>
+              <h2>Preferencias de negocio</h2>
+              <div class="panel-subtitle">
+                Configure alertas, relatorios e sinais do painel.
+              </div>
+            </div>
+          </div>
+
+          <div class="form-grid">
+            <div>
+              <label class="switch">
+                <input type="checkbox" checked />
+                <span class="slider"></span>
+              </label>
+              <span class="switch-label">Notificacoes de vencimento critico</span>
+            </div>
+            <div data-plan="business" data-plan-feature="alerts">
+              <label class="switch">
+                <input type="checkbox" checked />
+                <span class="slider"></span>
+              </label>
+              <span class="switch-label">Resumo diario por email</span>
+              <span
+                class="plan-badge plan-locked plan-tooltip plan-badge-inline"
+                data-plan-badge="alerts"
+                data-tooltip="Alertas automaticos por e-mail (Business)"
+              >
+                Alertas Business
+              </span>
+            </div>
+            <div>
+              <label class="switch">
+                <input type="checkbox" />
+                <span class="slider"></span>
+              </label>
+              <span class="switch-label">Alertas de produtos vendidos</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-header">
+            <div>
+              <h2>Beneficios do plano Business</h2>
+              <div class="panel-subtitle">
+                Recursos desbloqueados para operacao completa e relatorios avancados.
+              </div>
+            </div>
+          </div>
+
+          <div class="business-benefits" id="business-benefits">
+            <div class="business-benefit-item" data-business-benefit="unlimited">
+              <div>
+                <strong>Produtos ilimitados por mes</strong>
+                <small>Cadastre sem o limite de 50 itens do plano Free.</small>
+              </div>
+              <span class="business-benefit-status">Business</span>
+            </div>
+            <div class="business-benefit-item" data-business-benefit="import">
+              <div>
+                <strong>Importacao automatica de planilhas</strong>
+                <small>Traga dados do servidor com fluxo continuo.</small>
+              </div>
+              <span class="business-benefit-status">Business</span>
+            </div>
+            <div class="business-benefit-item" data-business-benefit="export">
+              <div>
+                <strong>Exportacao em XLSX, CSV, JSON e PDF</strong>
+                <small>Extraia relatorios completos para auditoria e compartilhamento.</small>
+              </div>
+              <span class="business-benefit-status">Business</span>
+            </div>
+            <div class="business-benefit-item" data-business-benefit="n8n">
+              <div>
+                <strong>Integracao com n8n e webhooks</strong>
+                <small>Automatize alertas, rotinas e integracoes com outros sistemas.</small>
+              </div>
+              <span class="business-benefit-status">Business</span>
+            </div>
+            <div class="business-benefit-item" data-business-benefit="reports">
+              <div>
+                <strong>Relatorios por grafico e categoria</strong>
+                <small>Exporte cortes de vendidos, retirados, lancados e vencidos.</small>
+              </div>
+              <span class="business-benefit-status">Business</span>
+            </div>
+            <div class="business-benefit-item" data-business-benefit="history">
+              <div>
+                <strong>Historico completo sem limite</strong>
+                <small>Acompanhe vendidos e retirados com rastreabilidade total.</small>
+              </div>
+              <span class="business-benefit-status">Business</span>
+            </div>
+            <div class="business-benefit-item" data-business-benefit="period">
+              <div>
+                <strong>Filtro por periodo no dashboard</strong>
+                <small>Analise desempenho por janela de datas.</small>
+              </div>
+              <span class="business-benefit-status">Business</span>
+            </div>
+            <div class="business-benefit-item" data-business-benefit="alerts">
+              <div>
+                <strong>Alertas automaticos por e-mail</strong>
+                <small>Receba resumos diarios de itens criticos.</small>
+              </div>
+              <span class="business-benefit-status">Business</span>
+            </div>
+            <div class="business-benefit-item" data-business-benefit="priority">
+              <div>
+                <strong>Suporte e evolucoes prioritarias</strong>
+                <small>Solicitacoes com prioridade no ciclo do produto.</small>
+              </div>
+              <span class="business-benefit-status">Business</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      (function hydrateAccountFromStorage() {
+        const AUTH_KEY = "gp_auth";
+        const USER_KEY = "gp_user";
+        const nameInput = document.getElementById("conta-nome");
+        const emailInput = document.getElementById("conta-email");
+        const phoneInput = document.getElementById("conta-telefone");
+        const storeInput = document.getElementById("conta-loja");
+        const cargoInput = document.getElementById("conta-cargo");
+
+        const storedAuth = localStorage.getItem(AUTH_KEY) === "1";
+        const storedEmail = localStorage.getItem(USER_KEY) || localStorage.getItem("signup_email");
+        const storedName = localStorage.getItem("signup_name");
+        const storedCompany = localStorage.getItem("signup_company");
+        const storedPhone = localStorage.getItem("account_phone") || localStorage.getItem("gp_account_whatsapp");
+        const storedCargo = localStorage.getItem("account_cargo");
+
+        if (storedAuth) {
+          if (nameInput && storedName) nameInput.value = storedName;
+          if (emailInput && storedEmail) emailInput.value = storedEmail;
+          if (storeInput && storedCompany) storeInput.value = storedCompany;
+          if (phoneInput && storedPhone) phoneInput.value = storedPhone;
+          if (cargoInput && storedCargo) cargoInput.value = storedCargo;
+        }
+      })();
+    </script>
+    <script>
+      (function applyPlanLabels() {
+        const accountBusiness = localStorage.getItem("gp_account_business");
+        const planType =
+          accountBusiness !== null
+            ? accountBusiness === "1" || accountBusiness === "true" || accountBusiness === "business"
+              ? "business"
+              : "free"
+            : localStorage.getItem("plan_type") === "business"
+              ? "business"
+              : "free";
+        const isBusiness = planType === "business";
+        const accountBadge = document.getElementById("account-plan-badge");
+        const accountUpgradeBtn = document.getElementById("account-upgrade-btn");
+        if (accountBadge) {
+          accountBadge.textContent = isBusiness ? "Plano Business" : "Plano Free";
+          accountBadge.classList.toggle("plan-free", !isBusiness);
+          accountBadge.classList.toggle("plan-business", isBusiness);
+          accountBadge.setAttribute(
+            "data-tooltip",
+            isBusiness ? "Plano Business ativo" : "Plano Free ativo - funcionalidades basicas"
+          );
+          if (accountUpgradeBtn) {
+            accountUpgradeBtn.style.display = isBusiness ? "none" : "inline-flex";
+          }
+        }
+
+        const alertRow = document.querySelector('[data-plan-feature="alerts"]');
+        if (alertRow) {
+          const toggle = alertRow.querySelector('input[type="checkbox"]');
+          const badge = alertRow.querySelector("[data-plan-badge]");
+          if (isBusiness) {
+            alertRow.classList.remove("plan-locked");
+            if (toggle) toggle.disabled = false;
+            if (badge) badge.classList.add("plan-business");
+            if (badge) badge.classList.remove("plan-locked");
+            if (badge) badge.textContent = "Business";
+            if (badge) badge.setAttribute("data-tooltip", "Recurso ativo");
+          } else {
+            alertRow.classList.add("plan-locked");
+            if (toggle) toggle.disabled = true;
+          }
+        }
+
+        document.querySelectorAll("[data-business-benefit]").forEach((item) => {
+          const status = item.querySelector(".business-benefit-status");
+          item.classList.toggle("plan-locked", !isBusiness);
+          if (status) {
+            status.classList.toggle("is-active", isBusiness);
+            status.textContent = isBusiness ? "Ativo" : "Business";
+          }
+        });
+      })();
+    </script>
+    <script>
+      (function setupAccountActions() {
+        const saveBtn = document.getElementById("account-save-btn");
+        const cancelBtn = document.getElementById("account-cancel-btn");
+        const statusEl = document.getElementById("account-status");
+        const nameInput = document.getElementById("conta-nome");
+        const emailInput = document.getElementById("conta-email");
+        const phoneInput = document.getElementById("conta-telefone");
+        const storeInput = document.getElementById("conta-loja");
+        const cargoInput = document.getElementById("conta-cargo");
+
+        if (!saveBtn || !cancelBtn) return;
+
+        const setStatus = (message, type = "") => {
+          if (!statusEl) return;
+          statusEl.textContent = message;
+          statusEl.className = "panel-subtitle";
+          if (type === "ok") statusEl.style.color = "#15803d";
+          else if (type === "err") statusEl.style.color = "#b91c1c";
+          else statusEl.style.color = "";
+        };
+
+        const syncFields = () => {
+          const storedName = localStorage.getItem("signup_name") || "";
+          const storedEmail = localStorage.getItem("gp_user") || localStorage.getItem("signup_email") || "";
+          const storedCompany = localStorage.getItem("signup_company") || "";
+          const storedPhone = localStorage.getItem("account_phone") || localStorage.getItem("gp_account_whatsapp") || "";
+          const storedCargo = localStorage.getItem("account_cargo") || "";
+
+          if (nameInput) nameInput.value = storedName;
+          if (emailInput) emailInput.value = storedEmail;
+          if (storeInput) storeInput.value = storedCompany;
+          if (phoneInput) phoneInput.value = storedPhone;
+          if (cargoInput) cargoInput.value = storedCargo;
+        };
+
+        saveBtn.addEventListener("click", () => {
+          const name = (nameInput?.value || "").trim();
+          const email = (emailInput?.value || "").trim();
+          const phone = (phoneInput?.value || "").trim();
+          const company = (storeInput?.value || "").trim();
+          const cargo = (cargoInput?.value || "").trim();
+
+          if (!name || !email) {
+            setStatus("Nome e email são obrigatórios.", "err");
+            return;
+          }
+
+          localStorage.setItem("signup_name", name);
+          localStorage.setItem("signup_email", email);
+          localStorage.setItem("gp_user", email);
+          localStorage.setItem("signup_company", company);
+          localStorage.setItem("account_phone", phone);
+          localStorage.setItem("gp_account_whatsapp", phone);
+          localStorage.setItem("account_cargo", cargo);
+
+          setStatus("Alterações salvas.", "ok");
+        });
+
+        cancelBtn.addEventListener("click", () => {
+          syncFields();
+          setStatus("Alterações descartadas.");
+        });
+      })();
+    </script>
+    <script>
+      (function hideHtmlExtension() {
+        if (!window.history || !window.history.replaceState) return;
+        const { pathname, search, hash } = window.location;
+        if (!pathname.endsWith(".html")) return;
+        const cleanPath = pathname
+          .replace(/\/index\.html$/, "/")
+          .replace(/\.html$/, "");
+        window.history.replaceState({}, "", `${cleanPath}${search}${hash}`);
+      })();
+    </script>
+    <script>
+      (function setupSideMenu() {
+        const toggle = document.getElementById("menu-toggle");
+        const menu = document.getElementById("side-menu");
+        const backdrop = document.getElementById("menu-backdrop");
+        if (!toggle || !menu || !backdrop) return;
+        const setOpen = (open) => {
+          menu.classList.toggle("is-open", open);
+          menu.setAttribute("aria-hidden", open ? "false" : "true");
+          backdrop.classList.toggle("is-open", open);
+          toggle.setAttribute("aria-expanded", String(open));
+          toggle.setAttribute("aria-label", open ? "Fechar menu" : "Abrir menu");
+        };
+        toggle.addEventListener("click", () => setOpen(!menu.classList.contains("is-open")));
+        backdrop.addEventListener("click", () => setOpen(false));
+        document.addEventListener("keydown", (event) => {
+          if (event.key === "Escape") setOpen(false);
+        });
+      })();
+    </script>
+  </body>
+</html>
