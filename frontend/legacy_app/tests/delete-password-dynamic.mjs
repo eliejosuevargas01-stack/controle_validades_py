@@ -4,7 +4,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
-const main = fs.readFileSync(path.join(root, "main.js"), "utf8");
+const main = fs.readFileSync(path.join(root, "js/main.js"), "utf8");
 
 assert.match(main, /const LOGIN_ENDPOINTS = \["https:\/\/myn8n\.seommerce\.shop\/webhook\/login"\]/);
 assert.match(main, /function requestDeleteCredentials\(\)/);

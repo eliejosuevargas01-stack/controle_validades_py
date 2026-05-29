@@ -13,7 +13,7 @@ const login = read("login.html");
 const checkout = read("checkout.html");
 const signup = read("signup.html");
 const account = read("minha-conta.html");
-const main = read("main.js");
+const main = read("js/main.js");
 
 assert.match(login, /gp_account_business/);
 assert.match(login, /persistAccountState/);
