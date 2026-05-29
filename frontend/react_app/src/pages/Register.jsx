@@ -14,7 +14,7 @@ import { signup } from "../services/authService"
 function Register() {
     const [nome, setNome] = useState("")
     const [email, setEmail] = useState("")
-    const [senha, setSesnha] = useState("")
+    const [senha, setSenha] = useState("")
 
     async function handleSubmit(event) {
         event.preventDefault()
@@ -36,7 +36,7 @@ function Register() {
         
     }
     return (
-        <div classsName="auth-container">
+        <div className="auth-container">
             <form
             className="auth-form"
             onSubmit={handleSubmit}>

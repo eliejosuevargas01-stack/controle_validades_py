@@ -9,7 +9,7 @@ function read(file) {
   return fs.readFileSync(path.join(root, file), "utf8");
 }
 
-const main = read("main.js");
+const main = read("js/main.js");
 const login = read("login.html");
 const signup = read("signup.html");
 const checkout = read("checkout.html");
