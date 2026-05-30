@@ -18,7 +18,7 @@ import {
 import Products from "./pages/Products"
 import Login from "./pages/Login"
 import Register from "./pages/Register"
-
+import ProtectedRoute from "./components/ProtectedRoute"
 
 function App() {
     return (
@@ -26,10 +26,11 @@ function App() {
             <Routes>
                 <Route
                 path="/"
-                element={<Products />}/>
+                element={
+                <ProtectedRoute><Products /></ProtectedRoute>}/>
                 <Route
                 path="/products"
-                element={<Products />}/>
+                element={<ProtectedRoute><Products /></ProtectedRoute>}/>
                 <Route
                 path="/login"
                 element={<Login />}/>

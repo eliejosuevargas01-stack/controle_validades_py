@@ -49,5 +49,22 @@ export async function login(credentials) {
         throw new Error("Email ou senha invalidos")
 
     }
-    return response.json()
-            }
+
+    const data = await response.json()
+    localStorage.setItem(
+        "token",data.access_token
+    )
+    return data
+}
+
+export function getToken() {
+    return localStorage.getItem("token")
+}
+
+export function logout() {
+    localStorage.removeItem("token")
+}
+
+export function isAuthenticated() {
+    return !!localStorage.getItem("token")
+}

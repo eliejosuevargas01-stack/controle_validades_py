@@ -13,9 +13,13 @@ import { useState } from "react"
 
 import { login } from "../services/authService"
 
+import { useNavigate } from "react-router-dom"
+
+
 function Login() {
     const [email, setEmail] = useState("")
     const [senha, setSenha] = useState("")
+    const navigate = useNavigate()
     async function handleSubmit(event) {
         event.preventDefault()
         try {
@@ -24,7 +28,7 @@ function Login() {
                 senha
             })
             console.log(data)
-            alert("Login bem sucedido")
+            navigate("/products")
         } catch (error) {
             console.error(error)
             alert("Erro ao fazer login")

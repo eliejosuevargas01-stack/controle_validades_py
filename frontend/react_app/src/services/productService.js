@@ -1,13 +1,12 @@
+import { getToken } from "./authService"
 const API_URL = "http://localhost:8001/products"
-
 
 export async function createProduct(productData) {
 
     const response = await fetch(API_URL, {
         method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
+        headers: 
+            getAuthHeaders(),
         body: JSON.stringify(productData)
     })
 
@@ -19,7 +18,7 @@ export async function createProduct(productData) {
 }
 
 export async function getProducts() {
-const response = await fetch(API_URL)
+const response = await fetch(API_URL, {headers: getAuthHeaders()})
 if (!response.ok) {
     throw new Error("Erro ao buscar produtos")
 }
@@ -27,20 +26,25 @@ return response.json()
 }
 
 export async function deleteProduct(productId) {
-    const response = await fetch(`${API_URL}/${productId}`, { method: 'DELETE' })
+    const response = await fetch(
+        `${API_URL}/${productId}`,
+        {
+            method: "DELETE",
+            headers: getAuthHeaders()
+        }
+    )
+
     if (!response.ok) {
         throw new Error("Erro ao deletar produto")
     }
+
     return response.json()
 }
-
 
 export async function updateProduct(productId, productData) {
     const response = await fetch(`${API_URL}/${productId}`, {
         method: "PUT",
-        headers: {
-            "Content-Type": "application/json"
-        },
+        headers: getAuthHeaders(),
         body: JSON.stringify(productData)
     })
 
@@ -50,7 +54,12 @@ export async function updateProduct(productId, productData) {
 
     return response.json()
 }
-
+function getAuthHeaders() {
+    return {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${getToken()}`
+    }
+}
 /*
  * Arquivo: productService.js
  * Objetivo: Centralizar as requisições à API relacionadas aos produtos.
