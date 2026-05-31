@@ -1,6 +1,8 @@
 from datetime import datetime, timedelta
 from jose import jwt, JWTError
+from passlib.context import CryptContext
 
+#secret key deve virar variavel de ambiente antes do deploy
 SECRET_KEY = "SUA-CHAVE-SECRETA"
 
 ALGORITHM = "HS256" 
@@ -37,3 +39,19 @@ def verify_token(token: str):
         return payload
     except JWTError:
         return None
+    
+pwd_context = CryptContext(
+    schemes=["bcrypt"],
+    deprecated="auto"
+    )
+def hash_password(password: str):
+    return pwd_context.hash(password)
+
+def verify_password(
+    plain_password: str,
+    hashed_password: str
+    ):
+    return pwd_context.verify(
+        plain_password,
+        hashed_password
+    )

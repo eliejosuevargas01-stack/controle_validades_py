@@ -11,10 +11,14 @@ import { useState } from "react"
 
 import { signup } from "../services/authService"
 
+import { useNavigate } from "react-router-dom"
+
 function Register() {
     const [nome, setNome] = useState("")
     const [email, setEmail] = useState("")
     const [senha, setSenha] = useState("")
+    const [loja, setLoja] = useState("")
+    const navigate = useNavigate()
 
     async function handleSubmit(event) {
         event.preventDefault()
@@ -22,7 +26,8 @@ function Register() {
             const data = await signup({
                 nome, 
                 email, 
-                senha
+                senha,
+                loja
 
             })
             console.log(data)
@@ -59,8 +64,20 @@ function Register() {
                 value={senha}
                 onChange={(e) => setSenha(e.target.value)}
                 />
+                <input
+                type="text"
+                placeholder="Loja"
+                value={loja}
+                onChange={(e) => setLoja(e.target.value)}
+                />
                 <button type="submit">
                 Registrar
+                </button>
+                <button
+                type="button"
+                onClick={() => navigate("/login")}
+                >
+                Já tenho conta
                 </button>
             </form>
         </div>

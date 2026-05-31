@@ -1,6 +1,7 @@
 from sqlalchemy.orm import Session
 from sqlalchemy import text
 from app.core.security import create_access_token
+from app.core.security import hash_password, verify_password
 
 def authenticate_user(db: Session, email: str, senha: str):
     # Busca o usuario pelo login e valida a senha.
@@ -21,9 +22,11 @@ def authenticate_user(db: Session, email: str, senha: str):
         return None
 
     # Comparacao simples enquanto a senha ainda esta em texto puro.
-    if user["senha"] != senha:
+    if not verify_password(
+        senha,
+        user["senha"]
+    ):
         return None
-
     # Devolve os dados esperados pelo schema de resposta.
     token = create_access_token(
         data={ "sub": str(user["id"])
@@ -61,7 +64,7 @@ def create_user(db, email, senha, loja, business, whatsapp):
     )
     result = db.execute(query, {
     "email": email,
-    "senha": senha,
+    "senha": hash_password(senha),
     "loja": loja,
     "business": business,
     "whatsapp": whatsapp
