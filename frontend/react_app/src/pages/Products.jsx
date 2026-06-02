@@ -25,6 +25,31 @@ import {
   updateProduct
 } from "../services/productService"
 
+function getDiasRestantes(validade) {
+  const hoje = new Date()
+  const vencimento = new Date(validade)
+  const diferenca =
+  vencimento - hoje
+  return Math.ceil(
+    diferenca / (1000 * 60 * 60 * 24)
+  )
+}
+
+function getStatusValidade(validade) { 
+  const dias = getDiasRestantes(validade)
+  if (dias < 0)
+    return "VENCIDO"
+  if (dias <= 3)
+    return "CRITICO"
+  if (dias <= 7)
+    return "ATENÇÃO"
+  if (dias <= 30)
+    return "PRÓXIMO"
+  return "OK"
+}
+function formatDate(data) {
+  return new Date(data).toLocaleDateString("pt-BR")
+}
 
 function Products() {
 
@@ -40,6 +65,8 @@ function Products() {
   })
 
 const [editingProductId, setEditingProductId] = useState(null)
+
+const [pendingProducts, setPendingProducts] = useState([])
 
   async function loadProducts() {
 
@@ -76,6 +103,33 @@ function handleEdit(product) {
   })
 }
 
+function handleAddProduct() {
+
+  if (
+  !formData.nome.trim() ||
+  !formData.validade ||
+  !formData.ean.trim() ||
+  !formData.categoria.trim()
+) {
+  alert("Preencha todos os campos obrigatórios.")
+  return
+}
+
+  setPendingProducts([
+    ...pendingProducts,
+    formData
+  ])
+
+  setFormData({
+    nome: "",
+    validade: "",
+    quantidade: 0,
+    troca: false,
+    ean: "",
+    categoria: ""
+  })
+}
+
   function handleChange(event) {
 
     const { name, value } = event.target
@@ -102,9 +156,14 @@ function handleEdit(product) {
       setEditingProductId(null)
 
     } else {
-
-      await createProduct(formData)
-
+      if (pendingProducts.length > 0) {
+        for (const product of pendingProducts) {
+          await createProduct(product)
+        }
+        setPendingProducts([])
+      } else {
+        await createProduct(formData)
+      }
     }
 
     await loadProducts()
@@ -136,6 +195,24 @@ function handleEdit(product) {
 
       console.error(error)
 
+    }
+  }
+
+  async function handleSaveAll() {
+    try {
+      if (pendingProducts.length === 0) {
+        alert ("Nenhum produto na lista.")
+        return
+      }
+
+      for (const product of pendingProducts) {
+        await createProduct(product)
+      }
+      setPendingProducts([])
+      await loadProducts()
+      alert("Produtos cadastrados com sucesso!")
+    } catch (error) {
+      console.error(error)
     }
   }
 
@@ -187,13 +264,31 @@ function handleEdit(product) {
         />
 
         <button type="submit">
-          {editingProductId ? "Salvar" : "Cadastrar"}
+          {editingProductId ? "Salvar" : 
+          pendingProducts.length > 0 ? 
+          `Cadastrar Todos (${pendingProducts.length})`:
+          "Cadastrar"}
         </button>
-
+        <button
+                type="button"
+                onClick={handleAddProduct}>
+                  Adicionar à Lista
+                </button>
       </form>
 
       <hr />
 
+      <h2>Produtos Pendentes</h2>
+      <ul>
+        {pendingProducts.map((product, index) => (
+          <li key={index}>
+            {product.nome}
+            {" - "}
+            {product.quantidade}
+            {" unidades"}
+          </li>
+        ))}
+      </ul>
       <table>
 
         <thead>
@@ -203,6 +298,8 @@ function handleEdit(product) {
             <th>Nome</th>
             <th>Validade</th>
             <th>Quantidade</th>
+            <th>Dias Restantes</th>
+            <th>Status</th>
             <th>Ações</th>
           </tr>
 
@@ -218,9 +315,17 @@ function handleEdit(product) {
 
               <td>{product.nome}</td>
 
-              <td>{product.validade}</td>
+              <td>{formatDate(product.validade)}</td>
 
               <td>{product.quantidade}</td>
+
+              <td>
+                {getDiasRestantes(product.validade)}
+              </td>
+
+              <td>
+                {getStatusValidade(product.validade)}
+              </td>
 
               <td>
 
@@ -234,7 +339,7 @@ function handleEdit(product) {
                 >
                     Editar
                 </button>
-
+                
               </td>
 
             </tr>

@@ -54,7 +54,7 @@ def create_validade(db: Session, payload: ProductCreate, usuario_id: int):
 
 
 def list_products(db: Session, usuario_id: int):
-    products = db.query(ValidadeDB).filter(ValidadeDB.usuario_id == usuario_id, ValidadeDB.deletado == False).all()
+    products = db.query(ValidadeDB).filter(ValidadeDB.usuario_id == usuario_id, ValidadeDB.deletado == False).order_by(ValidadeDB.validade.asc()).all()
     return products
 
 

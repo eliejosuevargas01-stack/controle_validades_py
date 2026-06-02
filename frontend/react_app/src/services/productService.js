@@ -1,4 +1,4 @@
-import { getToken } from "./authService"
+import { getToken, logout } from "./authService"
 const API_URL = "http://localhost:8001/products"
 
 export async function createProduct(productData) {
@@ -10,18 +10,25 @@ export async function createProduct(productData) {
         body: JSON.stringify(productData)
     })
 
+    if (response.status === 401) {
+    logout()
+    return
+}
     if (!response.ok) {
-        throw new Error("Erro ao criar produto")
+        throw new Error("Erro ao buscar produtos")
     }
-
-    return response.json()
+return response.json()
 }
 
 export async function getProducts() {
 const response = await fetch(API_URL, {headers: getAuthHeaders()})
-if (!response.ok) {
-    throw new Error("Erro ao buscar produtos")
+if (response.status === 401) {
+    logout()
+    return
 }
+    if (!response.ok) {
+        throw new Error("Erro ao buscar produtos")
+    }
 return response.json()
 }
 
@@ -34,11 +41,14 @@ export async function deleteProduct(productId) {
         }
     )
 
+    if (response.status === 401) {
+    logout()
+    return
+}
     if (!response.ok) {
-        throw new Error("Erro ao deletar produto")
+        throw new Error("Erro ao buscar produtos")
     }
-
-    return response.json()
+return response.json()
 }
 
 export async function updateProduct(productId, productData) {
@@ -48,11 +58,14 @@ export async function updateProduct(productId, productData) {
         body: JSON.stringify(productData)
     })
 
+   if (response.status === 401) {
+    logout()
+    return
+}
     if (!response.ok) {
-        throw new Error("Erro ao atualizar produto")
+        throw new Error("Erro ao buscar produtos")
     }
-
-    return response.json()
+return response.json()
 }
 function getAuthHeaders() {
     return {
