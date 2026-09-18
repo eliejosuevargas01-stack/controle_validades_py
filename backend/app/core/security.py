@@ -2,8 +2,7 @@ from datetime import datetime, timedelta
 from jose import jwt, JWTError
 from passlib.context import CryptContext
 
-#secret key deve virar variavel de ambiente antes do deploy
-SECRET_KEY = "SUA-CHAVE-SECRETA"
+from backend.app.core.config import SECRET_KEY
 
 ALGORITHM = "HS256" 
 
