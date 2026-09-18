@@ -13,6 +13,15 @@ DATABASE_URL = os.getenv(
     "postgresql+psycopg2://user:password@localhost:5432/controle_produtos",
 )
 
+#
+# Chave secreta utilizada para assinar tokens JWT e outras credenciais sensíveis.
+# Em ambientes de produção, sempre defina `SECRET_KEY` no arquivo `.env` para
+# evitar que a chave padrão seja usada.
+SECRET_KEY = os.getenv(
+    "SECRET_KEY",
+    "dev-secret-key-insecure",  # valor de desenvolvimento; NÃO usar em produção
+)
+
 # Onde colocar as credenciais do banco:
 # - crie um arquivo `.env` na raiz do projeto, no mesmo nível de `send_product.py`
 # - coloque nele a variável `DATABASE_URL`
