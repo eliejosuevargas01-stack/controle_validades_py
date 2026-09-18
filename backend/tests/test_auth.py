@@ -138,16 +138,75 @@ def test_signup_fails_when_email_exists(client, db_session):
 
 
 # --------------------------------------------------
-# Testes de cadastro
+# Testes complementares - casos limites de requisição
 # --------------------------------------------------
-#
-# Quando começar o cadastro, os testes devem cobrir pelo menos:
-# - cadastro com sucesso
-# - cadastro com login já existente
-# - cadastro com dados inválidos
-#
-# A estrutura deve seguir o mesmo padrão do login:
-# - criar usuário temporário, se necessário
-# - chamar a rota real
-# - validar status code e resposta
-# - limpar os dados no final
+
+
+def test_login_fails_with_missing_email(client):
+    # Login deve falhar quando o e-mail não é enviado na requisição
+    response = client.post(
+        "/auth/login",
+        json={"senha": "Senha123"},
+    )
+
+    assert response.status_code == 422
+
+
+def test_login_fails_with_missing_senha(client):
+    # Login deve falhar quando a senha não é enviada na requisição
+    response = client.post(
+        "/auth/login",
+        json={"email": f"teste_{uuid4().hex}@exemplo.com"},
+    )
+
+    assert response.status_code == 422
+
+
+def test_login_fails_with_empty_body(client):
+    # Login deve falhar quando o corpo da requisição está vazio
+    response = client.post(
+        "/auth/login",
+        json={},
+    )
+
+    assert response.status_code == 422
+
+
+def test_signup_fails_with_missing_email(client):
+    # Cadastro deve falhar quando o e-mail não é enviado
+    response = client.post(
+        "/auth/signup",
+        json={
+            "senha": "Senha123",
+            "loja": "TESTE",
+            "business": True,
+            "whatsapp": None,
+        },
+    )
+
+    assert response.status_code == 422
+
+
+def test_signup_fails_with_missing_senha(client):
+    # Cadastro deve falhar quando a senha não é enviada
+    response = client.post(
+        "/auth/signup",
+        json={
+            "email": f"novo_{uuid4().hex}@exemplo.com",
+            "loja": "TESTE",
+            "business": True,
+            "whatsapp": None,
+        },
+    )
+
+    assert response.status_code == 422
+
+
+def test_signup_fails_with_empty_body(client):
+    # Cadastro deve falhar quando o corpo da requisição está vazio
+    response = client.post(
+        "/auth/signup",
+        json={},
+    )
+
+    assert response.status_code == 422
